@@ -56,11 +56,11 @@ int main()
 	{
         switch(choice)
             {
-                case START_GAME:
-                    game_start();
-                    break;
+				case START_GAME:
+					game_start();
+					break;
 				case QUIT: quit();
-                    break;
+					break;
                 default:    printf("Oops! An invalid choice slipped through. ");
                             printf("Please try again.\n");
             }
