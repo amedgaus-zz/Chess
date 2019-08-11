@@ -5,17 +5,17 @@
 #define bold      "\33[1m"
 #define underline "\33[4m"
 #define unformat  "\33[0m"
-#define	 rook	 	"\u265C" 
-#define	 knite	 	"\u265e" 
-#define	 bishop		"\u265D" 
-#define	 qween		"\u265A" 
-#define	 king		"\u265B" 
-#define	 pion		"\u265F"
-#define  space 		" "
+#define rook	 	"\u265C" 
+#define knite	 	"\u265e" 
+#define bishop		"\u265D" 
+#define qween		"\u265A" 
+#define king		"\u265B" 
+#define pion		"\u265F"
+#define space 		" "
 		      //printf("%c[%d;%df ",0x1B,y,x);
-#define	 print(tool)	printf("%c[%d;%d;%dm %s ",'\e',at,txt,bg,tool)
-#define  change_bg	(bg==yellow_b)?(bg=cyan_b):(bg=yellow_b)
-#define  change_tx	(chessb[i][j]>97)?(txt=white_t):(txt=black_t)	
+#define print(tool)	printf("%c[%d;%d;%dm %s ",'\e',at,txt,bg,tool)
+#define change_bg	(bg==yellow_b)?(bg=cyan_b):(bg=yellow_b)
+#define change_tx	(chessb[i][j]>97)?(txt=white_t):(txt=black_t)	
 
 #define START_GAME 1    //define statement
 #define MENU_2 2
@@ -26,13 +26,13 @@
 #define BLACK 1
 
 typedef enum color_attributes {all_off,bold_on,Underscore=4,blink_on,rev_video_on=7,con_on} color_a;
-typedef enum color_txt  {black_t=30,red_t,green_t,yellow_t,blue_t,magenta_t,cyan_t,white_t} color_t;
-typedef enum color_bg   {black_b=40,red_b,green_b,yellow_b,blue_b,magenta_b,cyan_b,white_b} color_b;
-       
-void showchessboard (char chessb[ ][8]);     
+typedef enum color_txt {black_t=30,red_t,green_t,yellow_t,blue_t,magenta_t,cyan_t,white_t} color_t;
+typedef enum color_bg {black_b=40,red_b,green_b,yellow_b,blue_b,magenta_b,cyan_b,white_b} color_b;
+
+void showchessboard (char chessb[ ][8]);
 void initboard(char * chessb );
 void gotoxy(int x,int y);
-int menu();   
+int menu();
 int game_start();
 int menu_2();
 int menu_3();
@@ -49,38 +49,39 @@ int main()
 	
 	int choice;
 	
-	initboard((char*)chess);                 
+	initboard((char*)chess);
 	choice = menu();
 	
-	while(choice != QUIT)   //execute so long as choice is not equal to QUIT
+	while(choice != QUIT)//execute so long as choice is not equal to QUIT
 	{
-        switch(choice)
-            {
+		switch(choice)
+			{
 				case START_GAME:
 					game_start();
 					break;
 				case QUIT: quit();
 					break;
-                default:    printf("Oops! An invalid choice slipped through. ");
-                            printf("Please try again.\n");
-            }
-      choice = menu(); /* get user's subsequent selections */
-      }
+				default:
+					printf("Oops! An invalid choice slipped through. ");
+					printf("Please try again.\n");
+			}
+		choice = menu(); /* get user's subsequent selections */
+	}
 	return 0; 
-}                          
+}
 
 //////////////////////////////////////////////////////////////////
 
 void initboard(char* chessb)
 {
-	char chess[][8] = {{'r',' ',' ','q','k','b','n','r'},
-						{'p','p','p',' ','p','p','p','p'},
-						{' ',' ','n',' ',' ',' ',' ',' '},
-						{' ',' ',' ','p',' ','b',' ',' '},
-						{' ',' ',' ','P',' ',' ',' ','P'},
-						{' ',' ',' ',' ','P',' ',' ',' '},
-						{'P','P','P',' ',' ','P','P',' '},
-						{'R','N','B','Q','K','B','N','R'}};
+	char chess[][8]={{'r','n','b','q','k','b','n','r'},
+					{'p','p','p','p','p','p','p','p'},
+					{' ',' ',' ',' ',' ',' ',' ',' '},
+					{' ',' ',' ',' ',' ',' ',' ',' '},
+					{' ',' ',' ',' ',' ',' ',' ',' '},
+					{' ',' ',' ',' ',' ',' ',' ',' '},
+					{'P','P','P','P','P','P','P','P'},
+					{'R','N','B','Q','K','B','N','R'}};
 	char* temp=(char*)chess;
 	while((temp-(char*)chess)<64)*chessb++=*temp++;	
 }       
@@ -91,18 +92,19 @@ void initboard(char* chessb)
 void showchessboard(char chessb[ ][8])
 {
 	char i,j;
-	color_t  txt;		// color text
-	color_b  bg;		// color back ground
-	color_a  at=all_off;	//attributes
+	color_t txt;		// color text
+	color_b bg;		// color background
+	color_a at=all_off;	//attributes
 	system("clear");
-        printf("\e[%d;%dm\n\n\n\n\t\t   A  B  C  D  E  F  G  H\n",at,red_t);        
-        for(i=7;i>-1;i--)	//rows
-        {
+	printf("\e[%d;%dm\n\n\n\n\t\t   A  B  C  D  E  F  G  H\n",at,red_t);        
+	for(i=7;i>-1;i--)	//rows
+	{
 		change_bg;
 		printf("\e[%d;%dm\t\t%c ",at,red_t,49+i);//the number on the left side
-                for(j=0;j<8;j++){  //collums
+		for(j=0;j<8;j++)
+		{  //collums
 			change_bg;
-			change_tx; // if needed 			
+			change_tx; // if needed
 			switch(chessb[i][j]){ 
 				case 'r':print(rook);	
 					break;
@@ -132,8 +134,8 @@ void showchessboard(char chessb[ ][8])
 			}
 
 		}
-                printf("\e[%d;%dm %d\n  ",at,red_t,i+1);//the number on the right side
-        }   
+		printf("\e[%d;%dm %d\n  ",at,red_t,i+1);//the number on the right side
+        }  
         printf("%c[%d;%dm\t\t   A  B  C  D  E  F  G  H\n\n\n\n",'\e',at,red_t);
 	printf("%c[%d;%dm",'\e',at,black_t);//back to default black text
 }
