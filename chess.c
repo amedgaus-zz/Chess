@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #define bold      "\33[1m"
 #define underline "\33[4m"
@@ -196,12 +197,13 @@ int make_turn(player_color)
 {
 	unsigned int f_x=0,f_y=0,t_y=0,t_x=0;
 	bool readed=false;
+	int i,j;
 	
 	do
 	{
 		fflush(stdin);
 		scanf("%d%d%d%d",&f_x,&f_y,&t_x,&t_y);
-		if((f_y>0 && f_y<9) &&(t_y>0&&t_y<9)) then
+		if((f_y>0 && f_y<9) &&(t_y>0&&t_y<9)) 
 			if (((f_x>64 && f_x<73) &&(t_x>64&&t_x<73))||((f_x>96 && f_x<105) &&(t_x>96&&t_x<105))) readed=true;
 		printf("From %c:%d to %c:%d\n",f_x,f_y,t_x,t_y);
 	} while(!readed);
@@ -213,7 +215,7 @@ int make_turn(player_color)
 	f_y-=1;
 	t_y-=1;
 	//*end correcting user input to access element in array
-	switch(chessb[i][j]){ 
+	switch(chess[i][j]){ 
 				case 'r': move_rook(f_x,f_y,t_x,t_y);	
 					break;
 				case 'n': move(knite);
