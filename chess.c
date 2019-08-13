@@ -6,17 +6,17 @@
 #define bold      "\33[1m"
 #define underline "\33[4m"
 #define unformat  "\33[0m"
-#define rook	 	"\u265C" 
-#define knite	 	"\u265e" 
-#define bishop		"\u265D" 
-#define qween		"\u265A" 
-#define king		"\u265B" 
+#define rook	 	"\u265C"
+#define knite	 	"\u265e"
+#define bishop		"\u265D"
+#define qween		"\u265A"
+#define king		"\u265B"
 #define pion		"\u265F"
 #define space 		" "
 		      //printf("%c[%d;%df ",0x1B,y,x);
 #define print(tool)	printf("%c[%d;%d;%dm %s ",'\e',at,txt,bg,tool)
 #define change_bg	(bg==yellow_b)?(bg=cyan_b):(bg=yellow_b)
-#define change_tx	(chessb[i][j]>97)?(txt=white_t):(txt=black_t)	
+#define change_tx	(chessb[i][j]>97)?(txt=white_t):(txt=black_t)
 
 #define START_GAME 1    //define statement
 #define MENU_2 2
@@ -30,7 +30,7 @@ typedef enum color_attributes {all_off,bold_on,Underscore=4,blink_on,rev_video_o
 typedef enum color_txt {black_t=30,red_t,green_t,yellow_t,blue_t,magenta_t,cyan_t,white_t} color_t;
 typedef enum color_bg {black_b=40,red_b,green_b,yellow_b,blue_b,magenta_b,cyan_b,white_b} color_b;
 
-void showchessboard (char chessb[ ][8]);
+void showchessboard (unsigned char chessb[ ][8]);
 void initboard(char * chessb );
 void gotoxy(int x,int y);
 int menu();
@@ -47,12 +47,12 @@ int player_color=0;
 
 int main()
 {
-	
+
 	int choice;
-	
+
 	initboard((char*)chess);
 	choice = menu();
-	
+
 	while(choice != QUIT)//execute so long as choice is not equal to QUIT
 	{
 		switch(choice)
@@ -68,7 +68,7 @@ int main()
 			}
 		choice = menu(); /* get user's subsequent selections */
 	}
-	return 0; 
+	return 0;
 }
 
 //////////////////////////////////////////////////////////////////
@@ -84,20 +84,20 @@ void initboard(char* chessb)
 					{'P','P','P','P','P','P','P','P'},
 					{'R','N','B','Q','K','B','N','R'}};
 	char* temp=(char*)chess;
-	while((temp-(char*)chess)<64)*chessb++=*temp++;	
-}       
+	while((temp-(char*)chess)<64)*chessb++=*temp++;
+}
 
 
- ////////////////////////////////////////////////////////////////////////////////////////////// 
+ //////////////////////////////////////////////////////////////////////////////////////////////
 
-void showchessboard(char chessb[ ][8])
+void showchessboard(unsigned char chessb[ ][8])
 {
 	char i,j;
 	color_t txt;		// color text
 	color_b bg;		// color background
 	color_a at=all_off;	//attributes
 	system("clear");
-	printf("\e[%d;%dm\n\n\n\n\t\t   A  B  C  D  E  F  G  H\n",at,red_t);        
+	printf("\e[%d;%dm\n\n\n\n\t\t   A  B  C  D  E  F  G  H\n",at,red_t);
 	for(i=7;i>-1;i--)	//rows
 	{
 		change_bg;
@@ -106,8 +106,8 @@ void showchessboard(char chessb[ ][8])
 		{  //collums
 			change_bg;
 			change_tx; // if needed
-			switch(chessb[i][j]){ 
-				case 'r':print(rook);	
+			switch(chessb[i][j]){
+				case 'r':print(rook);
 					break;
 				case 'n': print(knite);
 					break;
@@ -136,12 +136,12 @@ void showchessboard(char chessb[ ][8])
 
 		}
 		printf("\e[%d;%dm %d\n  ",at,red_t,i+1);//the number on the right side
-        }  
+        }
         printf("%c[%d;%dm\t\t   A  B  C  D  E  F  G  H\n\n\n\n",'\e',at,red_t);
 	printf("%c[%d;%dm",'\e',at,black_t);//back to default black text
 }
  //////////////////////////////////////////////////////////////////////////////////////////////
-       
+
 void gotoxy(int x,int y)
 {
 	printf("%c[%d;%df ",0x1B,y,x);
@@ -175,10 +175,10 @@ int game_start()
 	showchessboard(chess);
 	while (!result)
 	{
-		printf("\n\nPlayer 1 please male your turn:\n");
+		printf("\n\nPlayer 1 please make your turn:\n");
 		result=make_turn(WHITE);
 		if (result) break;
-		printf("\n\nPlayer 2 please male your turn:\n");
+		printf("\n\nPlayer 2 please make your turn:\n");
 		result=make_turn(BLACK);
 		if (result) break;
 	}
@@ -186,24 +186,25 @@ int game_start()
 }
 void quit()
 {
-    printf("Quiting...Bye!");
-    exit(0);
+	printf("Quiting...Bye!");
+	exit(0);
 }
 int move_rook(int f_x, int f_y,int t_x,int t_y)
 {
 	printf("Rook moved");
+	return 0;
 }
-int make_turn(player_color)
+int make_turn(int player_color)
 {
 	unsigned int f_x=0,f_y=0,t_y=0,t_x=0;
 	bool readed=false;
-	int i,j;
-	
+	int i=0,j=0;
+
 	do
 	{
 		fflush(stdin);
 		scanf("%d%d%d%d",&f_x,&f_y,&t_x,&t_y);
-		if((f_y>0 && f_y<9) &&(t_y>0&&t_y<9)) 
+		if((f_y>0 && f_y<9) &&(t_y>0&&t_y<9))
 			if (((f_x>64 && f_x<73) &&(t_x>64&&t_x<73))||((f_x>96 && f_x<105) &&(t_x>96&&t_x<105))) readed=true;
 		printf("From %c:%d to %c:%d\n",f_x,f_y,t_x,t_y);
 	} while(!readed);
@@ -215,32 +216,33 @@ int make_turn(player_color)
 	f_y-=1;
 	t_y-=1;
 	//*end correcting user input to access element in array
-	switch(chess[i][j]){ 
-				case 'r': move_rook(f_x,f_y,t_x,t_y);	
-					break;
-				case 'n': move(knite);
-					break;
-				case 'b': move(bishop);
-					break;
-				case 'q': move(qween);
-					break;
-				case 'k': move(king);
-					break;
-				case 'p': move(pion);
-					break;
-				case 'R': move(rook);
-					break;
-				case 'N': move(knite);
-					break;
-				case 'B': move(bishop);
-					break;
-				case 'Q': move(qween);
-					break;
-				case 'K': move(king);
-					break;
-				case 'P': move(pion);
-					break;
-				default : move(space);
-			}
+	switch(chess[i][j])
+	{
+		case 'r': move_rook(f_x,f_y,t_x,t_y);
+			break;
+		/*case 'n': move(knite);
+			break;
+		case 'b': move(bishop);
+			break;
+		case 'q': move(qween);
+			break;
+		case 'k': move(king);
+			break;
+		case 'p': move(pion);
+			break;
+		case 'R': move(rook);
+			break;
+		case 'N': move(knite);
+			break;
+		case 'B': move(bishop);
+			break;
+		case 'Q': move(qween);
+			break;
+		case 'K': move(king);
+			break;
+		case 'P': move(pion);
+			break;
+		default : move(space);*/
+	}
 	return 1;
 }
