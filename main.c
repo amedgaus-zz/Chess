@@ -191,9 +191,9 @@ void quit()
 }
 int move_rook(int f_x, int f_y,int t_x,int t_y)
 {
+
     chess[t_x][t_y]=chess[f_x][f_y];
-    system("clear");
-    showchessboard(chess);
+    chess[f_x][f_y]=' ';
     printf("Rook moved");
 	return 0;
 }
@@ -221,7 +221,7 @@ int make_turn(int player_color)
 	//*end correcting user input to access element in array
 	switch(chess[i][j])
 	{
-		case 'r': move_rook(f_x,f_y,t_x,t_y);
+		case 'r': move_rook(f_y,f_x,t_y,t_x);
 			break;
 		/*case 'n': move(knite);
 			break;
@@ -247,5 +247,7 @@ int make_turn(int player_color)
 			break;
 		default : move(space);*/
 	}
-	return 1;
+	system("clear");
+    showchessboard(chess);
+	return 0;
 }
