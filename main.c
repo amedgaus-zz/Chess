@@ -199,20 +199,27 @@ int move_rook(int f_x, int f_y,int t_x,int t_y)
 }
 int make_turn(int player_color)
 {
-	unsigned int f_x=0,f_y=0,t_y=0,t_x=0;
+	unsigned int f_y=0,t_y=0;
+	unsigned char f_x=0,t_x=0;
 	bool readed=false;
 	int i=0,j=0;
 
 	do
 	{
 		fflush(stdin);
+		fflush(stdin);
 		scanf("%c%d%c%d",&f_x,&f_y,&t_x,&t_y);
 		if((f_y>0 && f_y<9) &&(t_y>0&&t_y<9))
-			if (((f_x>64 && f_x<73) &&(t_x>64&&t_x<73))||((f_x>96 && f_x<105) &&(t_x>96&&t_x<105))) readed=true;
-		printf("From %c:%d to %c:%d\n",f_x,f_y,t_x,t_y);
-	} while(!readed);
+			if (((f_x>64 && f_x<73) &&(t_x>64&&t_x<73))||((f_x>96 && f_x<105) &&(t_x>96&&t_x<105)))
+			{
+                readed=true;
+                printf("From %c:%d to %c:%d\n",f_x,f_y,t_x,t_y);
+            }
+            else printf("Input again\n");
+        else printf("Input again\n");
+    } while(!readed);
 	//correcting user input to access element in array
-	if (f_x>64 && f_x<73) f_x-=65;
+    if (f_x>64 && f_x<73) f_x-=65;
 	else f_x-=97;
 	if (t_x>64&&t_x<73) t_x-=65;
 	else t_x-=97;
