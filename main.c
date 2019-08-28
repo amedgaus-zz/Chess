@@ -194,8 +194,9 @@ int move_rook(int f_x, int f_y,int t_x,int t_y)
 
     chess[t_x][t_y]=chess[f_x][f_y];
     chess[f_x][f_y]=' ';
-    printf("Rook moved");
-	return 0;
+    printf("Rook moved, please press enter");
+    getchar();
+    return 0;
 }
 int make_turn(int player_color)
 {
