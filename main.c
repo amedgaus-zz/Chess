@@ -208,7 +208,6 @@ int make_turn(int player_color)
 	do
 	{
 		fflush(stdin);
-		fflush(stdin);
 		scanf("%c%d%c%d",&f_x,&f_y,&t_x,&t_y);
 		if((f_y>0 && f_y<9) &&(t_y>0&&t_y<9))
 			if (((f_x>64 && f_x<73) &&(t_x>64&&t_x<73))||((f_x>96 && f_x<105) &&(t_x>96&&t_x<105)))
@@ -227,7 +226,7 @@ int make_turn(int player_color)
 	f_y-=1;
 	t_y-=1;
 	//*end correcting user input to access element in array
-	switch(chess[i][j])
+	switch(chess[f_y][f_x])
 	{
 		case 'r': move_rook(f_y,f_x,t_y,t_x);
 			break;
