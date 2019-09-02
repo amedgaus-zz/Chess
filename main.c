@@ -189,72 +189,81 @@ void quit()
 	printf("Quiting...Bye!");
 	exit(0);
 }
-int move_rook(int f_x, int f_y,int t_x,int t_y)
+bool move_rook(int f_x, int f_y,int t_x,int t_y)
 {
 
     chess[t_x][t_y]=chess[f_x][f_y];
     chess[f_x][f_y]=' ';
     printf("Rook moved, please press enter");
     getchar();
-    return 0;
+
+    return true;
 }
 int make_turn(int player_color)
 {
 	unsigned int f_y=0,t_y=0;
 	unsigned char f_x=0,t_x=0;
-	bool readed=false;
+	bool readed=false, moved=false;
 	int i=0,j=0;
 
 	do
 	{
-		fflush(stdin);
-		scanf("%c%d%c%d",&f_x,&f_y,&t_x,&t_y);
-		if((f_y>0 && f_y<9) &&(t_y>0&&t_y<9))
-			if (((f_x>64 && f_x<73) &&(t_x>64&&t_x<73))||((f_x>96 && f_x<105) &&(t_x>96&&t_x<105)))
-			{
-                readed=true;
-                printf("From %c:%d to %c:%d\n",f_x,f_y,t_x,t_y);
-            }
+        do
+        {
+            fflush(stdin);
+            scanf("%c%d%c%d",&f_x,&f_y,&t_x,&t_y);
+            if((f_y>0 && f_y<9) &&(t_y>0&&t_y<9))
+                if (((f_x>64 && f_x<73) &&(t_x>64&&t_x<73))||((f_x>96 && f_x<105) &&(t_x>96&&t_x<105)))
+                {
+                    readed=true;
+                    printf("From %c:%d to %c:%d\n",f_x,f_y,t_x,t_y);
+                }
+                else printf("Input again\n");
             else printf("Input again\n");
-        else printf("Input again\n");
-    } while(!readed);
-	//correcting user input to access element in array
-    if (f_x>64 && f_x<73) f_x-=65;
-	else f_x-=97;
-	if (t_x>64&&t_x<73) t_x-=65;
-	else t_x-=97;
-	f_y-=1;
-	t_y-=1;
-	//*end correcting user input to access element in array
-	switch(chess[f_y][f_x])
-	{
-		case 'r': move_rook(f_y,f_x,t_y,t_x);
-			break;
-		/*case 'n': move(knite);
-			break;
-		case 'b': move(bishop);
-			break;
-		case 'q': move(qween);
-			break;
-		case 'k': move(king);
-			break;
-		case 'p': move(pion);
-			break;
-		case 'R': move(rook);
-			break;
-		case 'N': move(knite);
-			break;
-		case 'B': move(bishop);
-			break;
-		case 'Q': move(qween);
-			break;
-		case 'K': move(king);
-			break;
-		case 'P': move(pion);
-			break;
-		default : move(space);*/
-	}
-	system("clear");
+        } while(!readed);
+        //correcting user input to access element in array
+        if (f_x>64 && f_x<73) f_x-=65;
+        else f_x-=97;
+        if (t_x>64&&t_x<73) t_x-=65;
+        else t_x-=97;
+        f_y-=1;
+        t_y-=1;
+        //*end correcting user input to access element in array
+        switch(chess[f_y][f_x])
+        {
+            case 'r':   if(!player_color) moved=move_rook(f_y,f_x,t_y,t_x);
+                        else
+                        {
+                            printf("Choose your figure!");
+                            getchar();
+                        }
+                        break;
+            /*case 'n': move(knite);
+                break;
+            case 'b': move(bishop);
+                break;
+            case 'q': move(qween);
+                break;
+            case 'k': move(king);
+                break;
+            case 'p': move(pion);
+                break;
+            case 'R': move(rook);
+                break;
+            case 'N': move(knite);
+                break;
+            case 'B': move(bishop);
+                break;
+            case 'Q': move(qween);
+                break;
+            case 'K': move(king);
+                break;
+            case 'P': move(pion);
+                break;
+            default : move(space);*/
+        }
+    system("clear");
     showchessboard(chess);
-	return 0;
+    } while(!moved);
+    return 0;
 }
