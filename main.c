@@ -27,8 +27,8 @@
 #define BLACK 1
 
 typedef enum color_attributes {all_off,bold_on,Underscore=4,blink_on,rev_video_on=7,con_on} color_a;
-typedef enum color_txt {black_t,red_t,green_t,yellow_t,blue_t=11,magenta_t,cyan_t,white_t} color_t;
-typedef enum color_bg {black_b=10,red_b,green_b,yellow_b,blue_b,magenta_b,cyan_b,white_b} color_b;
+typedef enum color_txt {black_t=30,red_t,green_t,yellow_t,blue_t,magenta_t,cyan_t,white_t=97} color_t;
+typedef enum color_bg {black_b=40,red_b,green_b,yellow_b,blue_b,magenta_b,cyan_b,white_b=107} color_b;
 
 void showchessboard (unsigned char chessb[ ][8]);
 void initboard(char * chessb );
