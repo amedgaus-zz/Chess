@@ -202,7 +202,7 @@ int make_turn(int player_color)
 {
 	unsigned int f_y=0,t_y=0;
 	unsigned char f_x=0,t_x=0;
-	bool readed=false, moved=false;
+	bool bMoveReaded=false, bFigureMoved=false, bDestOccupied = false;
 	int i=0,j=0;
 
 	do
@@ -214,12 +214,12 @@ int make_turn(int player_color)
             if((f_y>0 && f_y<9) &&(t_y>0&&t_y<9))
                 if (((f_x>64 && f_x<73) &&(t_x>64&&t_x<73))||((f_x>96 && f_x<105) &&(t_x>96&&t_x<105)))
                 {
-                    readed=true;
+                    bMoveReaded=true;
                     printf("From %c:%d to %c:%d\n",f_x,f_y,t_x,t_y);
                 }
                 else printf("Input again\n");
             else printf("Input again\n");
-        } while(!readed);
+        } while(!bMoveReaded);
         //correcting user input to access element in array
         if (f_x>64 && f_x<73) f_x-=65;
         else f_x-=97;
@@ -230,84 +230,84 @@ int make_turn(int player_color)
         //*end correcting user input to access element in array
         switch(chess[f_y][f_x])
         {
-            case 'r':   if(!player_color) moved=move_figure(f_y,f_x,t_y,t_x);
+            case 'r':   if(!player_color) bFigureMoved=move_figure(f_y,f_x,t_y,t_x);
                         else
                         {
                             printf("Choose your figure!");
                             getchar();
                         }
                         break;
-            case 'n':	if(!player_color) moved=move_figure(f_y,f_x,t_y,t_x);
+            case 'n':	if(!player_color) bFigureMoved=move_figure(f_y,f_x,t_y,t_x);
                         else
                         {
                             printf("Choose your figure!");
                             getchar();
                         }
                         break;
-            case 'b':	if(!player_color) moved=move_figure(f_y,f_x,t_y,t_x);
+            case 'b':	if(!player_color) bFigureMoved=move_figure(f_y,f_x,t_y,t_x);
                         else
                         {
                             printf("Choose your figure!");
                             getchar();
                         }
                         break;
-            case 'q':	if(!player_color) moved=move_figure(f_y,f_x,t_y,t_x);
+            case 'q':	if(!player_color) bFigureMoved=move_figure(f_y,f_x,t_y,t_x);
                         else
                         {
                             printf("Choose your figure!");
                             getchar();
                         }
                         break;
-            case 'k':	if(!player_color) moved=move_figure(f_y,f_x,t_y,t_x);
+            case 'k':	if(!player_color) bFigureMoved=move_figure(f_y,f_x,t_y,t_x);
                         else
                         {
                             printf("Choose your figure!");
                             getchar();
                         }
                         break;
-            case 'p':	if(!player_color) moved=move_figure(f_y,f_x,t_y,t_x);
+            case 'p':	if(!player_color) bFigureMoved=move_figure(f_y,f_x,t_y,t_x);
                         else
                         {
                             printf("Choose your figure!");
                             getchar();
                         }
                         break;
-            case 'R':	if(player_color) moved=move_figure(f_y,f_x,t_y,t_x);
+            case 'R':	if(player_color) bFigureMoved=move_figure(f_y,f_x,t_y,t_x);
                         else
                         {
                             printf("Choose your figure!");
                             getchar();
                         }
                         break;
-            case 'N':	if(player_color) moved=move_figure(f_y,f_x,t_y,t_x);
+            case 'N':	if(player_color) bFigureMoved=move_figure(f_y,f_x,t_y,t_x);
                         else
                         {
                             printf("Choose your figure!");
                             getchar();
                         }
                         break;
-            case 'B':	if(player_color) moved=move_figure(f_y,f_x,t_y,t_x);
+            case 'B':	if(player_color) bFigureMoved=move_figure(f_y,f_x,t_y,t_x);
                         else
                         {
                             printf("Choose your figure!");
                             getchar();
                         }
                         break;
-            case 'Q':	if(player_color) moved=move_figure(f_y,f_x,t_y,t_x);
+            case 'Q':	if(player_color) bFigureMoved=move_figure(f_y,f_x,t_y,t_x);
                         else
                         {
                             printf("Choose your figure!");
                             getchar();
                         }
                         break;
-            case 'K':	if(player_color) moved=move_figure(f_y,f_x,t_y,t_x);
+            case 'K':	if(player_color) bFigureMoved=move_figure(f_y,f_x,t_y,t_x);
                         else
                         {
                             printf("Choose your figure!");
                             getchar();
                         }
                         break;
-            case 'P':	if(player_color) moved=move_figure(f_y,f_x,t_y,t_x);
+            case 'P':	if(player_color) bFigureMoved=move_figure(f_y,f_x,t_y,t_x);
                         else
                         {
                             printf("Choose your figure!");
@@ -317,6 +317,6 @@ int make_turn(int player_color)
         }
     system("clear");
     showchessboard(chess);
-    } while(!moved);
+    } while(!bFigureMoved);
     return 0;
 }
