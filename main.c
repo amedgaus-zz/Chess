@@ -198,11 +198,34 @@ bool move_figure(int f_x, int f_y,int t_x,int t_y)
 
     return true;
 }
+int validate_rook_move(int player_color, int f_x, int f_y, int t_x, int t_y)
+{
+    if (f_x == t_x && f_y == t_y)
+    {
+        return false;
+    }
+    else if (f_x == t_x && f_y != t_y)
+    {
+        if (f_y > t_y)
+            while ((f_y - 1) != t_y)
+                {
+                    if (chess[f_x][f_y] != ' ') return false;
+                    f_y -= 1;
+                }
+        else if (f_y < t_y)
+        {
+            /* code */
+        }
+        
+    }
+    
+    return true;
+}
 int make_turn(int player_color)
 {
 	unsigned int f_y=0,t_y=0;
 	unsigned char f_x=0,t_x=0;
-	bool bMoveReaded=false, bFigureMoved=false, bDestOccupied = false;
+	bool bMoveReaded=false, bFigureMoved=false, bDestOccupied = false, bValidMove = false;
 	int i=0,j=0;
 
 	do
@@ -230,7 +253,11 @@ int make_turn(int player_color)
         //*end correcting user input to access element in array
         switch(chess[f_y][f_x])
         {
-            case 'r':   if(!player_color) bFigureMoved=move_figure(f_y,f_x,t_y,t_x);
+            case 'r':   if(!player_color) 
+                        {
+                            bValidMove = validate_rook_move(player_color,f_y,f_x,t_y,t_x);
+                            bFigureMoved = move_figure(f_y,f_x,t_y,t_x);
+                        }
                         else
                         {
                             printf("Choose your figure!");
